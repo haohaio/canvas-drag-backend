@@ -9,6 +9,7 @@ if (!fs.existsSync(logsDir)) {
 }
 
 log4js.configure({
+  pm2: true,
   appenders: {
     console: { type: 'console' },
     dateFile: {

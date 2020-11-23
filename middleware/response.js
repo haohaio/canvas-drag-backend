@@ -1,3 +1,5 @@
+const { logger } = require('./logger')
+
 // 这个middleware用于将ctx.result中的内容最终回传给客户端
 // 回传的格式遵循这样的格式：{ code: 0, msg: any data: any }
 const responseHandler = (ctx) => {
