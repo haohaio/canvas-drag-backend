@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient
 const ObjectID = require('mongodb').ObjectID
-const config = require('./config.js')
+const config = require('../config')
 
 class DB {
   static instance = null
@@ -24,11 +24,13 @@ class DB {
         return resolve(this.dbClient)
       }
 
+      const url = 'mongodb://' + config.mongoDB.host + ':' + config.mongoDB.port
+
       // 连接数据库
-      MongoClient.connect(config.dbUrl, (err, client) => {
+      MongoClient.connect(url, (err, client) => {
         if (!err) {
           console.log('Connected successfully to server')
-          const db = client.db(config.dbName)
+          const db = client.db(config.mongoDB.database)
           this.dbClient = db
           resolve(this.dbClient)
         } else {

@@ -16,6 +16,10 @@ const responseHandler = (ctx) => {
 // 并将异常消息回传给客户端：{ code: '错误代码', msg: '错误信息' }
 const errorHandler = (ctx, next) => {
   return next().catch((err) => {
+    if (err.code == null) {
+      logger.error(err.stack)
+    }
+
     ctx.body = {
       code: err.code || -1,
       data: null,

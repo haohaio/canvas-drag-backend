@@ -5,8 +5,12 @@ const cors = require('koa2-cors')
 const DB = require('./modules/db')
 const app = new Koa()
 const router = new Router()
+const { loggerMiddleware } = require('./middleware/logger')
 const { responseHandler, errorHandler } = require('./middleware/response')
 const { corsHandler } = require('./middleware/cors')
+
+// Logger
+app.use(loggerMiddleware)
 
 app.use(errorHandler)
 app.use(bodyParser())
@@ -36,6 +40,4 @@ app.use(router.allowedMethods())
 
 app.use(responseHandler)
 
-app.listen(3000, () => {
-  console.log('starting at port 3000')
-})
+module.exports = app
